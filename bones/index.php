@@ -3,7 +3,7 @@
 			<?php if(is_home() && !is_paged()):?>
 				<div id="events">
 					<?php
-					$args = array( 'post_type' => 'event', 'posts_per_page' => 10 );
+					$args = array( 'post_type' => 'rs_events', 'posts_per_page' => 10 );
 					$loop = new WP_Query( $args );
 					while ( $loop->have_posts() ) : $loop->the_post(); ?>
 						<article id="event-<?php the_ID(); ?>" <?php post_class('clearfix'); ?> role="event">

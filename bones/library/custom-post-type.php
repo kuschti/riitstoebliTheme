@@ -17,9 +17,9 @@ URL: http://themble.com/bones/
 // 1. Register Event Post Type
 
 // let's create the function for the custom type
-function post_type_event_init() { 
+function post_type_rs_event_init() { 
 	// creating (registering) the custom type 
-	register_post_type( 'event', /* (http://codex.wordpress.org/Function_Reference/register_post_type) */
+	register_post_type( 'rs_events', /* (http://codex.wordpress.org/Function_Reference/register_post_type) */
 	 	// let's now add all the options for this post type
 		array('labels' => array(
 			'name' => __('Events', 'bonestheme'), /* This is the Title of the Group */
@@ -56,7 +56,7 @@ function post_type_event_init() {
 } 
 
 	// adding the function to the Wordpress init
-	add_action( 'init', 'post_type_event_init');
+	add_action( 'init', 'post_type_rs_event_init');
 	
 	/*
 	for more information on taxonomies, go here:
@@ -66,8 +66,8 @@ function post_type_event_init() {
 // 2. Event Kategorien
 	
 	// now let's add custom categories (these act like categories)
-    register_taxonomy( 'eventtyp', 
-    	array('event'), /* if you change the name of register_post_type( 'custom_type', then you have to change this */
+    register_taxonomy( 'rs_eventtypes', 
+    	array('rs_events'), /* if you change the name of register_post_type( 'custom_type', then you have to change this */
     	array('hierarchical' => true,     /* if this is true, it acts like categories */             
     		'labels' => array(
     			'name' => __( 'Event Typ', 'bonestheme' ), /* name of the custom taxonomy */
@@ -88,17 +88,17 @@ function post_type_event_init() {
     );
 // 3. Show Columns
  
-    add_filter ("manage_edit-rs_events_columns", "rs_events_edit_columns");
-    add_action ("manage_posts_custom_column", "rs_events_custom_columns");
+    add_filter("manage_edit-rs_events_columns", "rs_events_edit_columns");
+    add_action("manage_posts_custom_column", "rs_events_custom_columns");
      
     function rs_events_edit_columns($columns) {
      
         $columns = array(
             "cb" => "<input type=\"checkbox\" />",
-            "rs_col_ev_cat" => "Category",
+            "title" => "Event",
             "rs_col_ev_date" => "Dates",
             "rs_col_ev_times" => "Times",
-            "title" => "Event",
+            "rs_col_ev_cat" => "Category",
             "rs_col_ev_desc" => "Description",
             );
         return $columns;
@@ -111,7 +111,7 @@ function post_type_event_init() {
         {
         case "rs_col_ev_cat":
             // - show taxonomy terms -
-            $eventcats = get_the_terms($post->ID, "eventtyp");
+            $eventcats = get_the_terms($post->ID, "rs_eventtypes");
             $eventcats_html = array();
             if ($eventcats) {
             foreach ($eventcats as $eventcat)
@@ -150,7 +150,7 @@ function post_type_event_init() {
     add_action( 'admin_init', 'rs_events_create' );
      
     function rs_events_create() {
-        add_meta_box('rs_events_meta', 'Events', 'rs_events_meta', 'event');
+        add_meta_box('rs_events_meta', 'Events', 'rs_events_meta', 'rs_events');
     }
      
     function rs_events_meta () {
@@ -199,6 +199,65 @@ function post_type_event_init() {
         <?php
     }
 
+// 5. Save Data
+ 
+    add_action ('save_post', 'save_rs_events');
+     
+    function save_rs_events(){
+     
+        global $post;
+         
+        // - still require nonce         
+        if ( !wp_verify_nonce( $_POST['rs-events-nonce'], 'rs-events-nonce' )) {
+            return $post->ID;
+        }
+         
+        if ( !current_user_can( 'edit_post', $post->ID ))
+            return $post->ID;
+         
+        // - convert back to unix & update post
+         
+        if(!isset($_POST["rs_events_startdate"])):
+        return $post;
+        endif;
+        $updatestartd = strtotime ( $_POST["rs_events_startdate"] . $_POST["rs_events_starttime"] );
+        update_post_meta($post->ID, "rs_events_startdate", $updatestartd );
+         
+        if(!isset($_POST["rs_events_enddate"])):
+        return $post;
+        endif;
+        $updateendd = strtotime ( $_POST["rs_events_enddate"] . $_POST["rs_events_endtime"]);
+        update_post_meta($post->ID, "rs_events_enddate", $updateendd );
+     
+    }
+
+// 6. Customize Update Messages
+add_filter('post_updated_messages', 'events_updated_messages');
+ 
+function events_updated_messages( $messages ) {
+ 
+  global $post, $post_ID;
+ 
+  $messages['rs_events'] = array(
+    0 => '', // Unused. Messages start at index 1.
+    1 => sprintf( __('Event updated. <a href="%s">View item</a>'), esc_url( get_permalink($post_ID) ) ),
+    2 => __('Custom field updated.'),
+    3 => __('Custom field deleted.'),
+    4 => __('Event updated.'),
+    /* translators: %s: date and time of the revision */
+    5 => isset($_GET['revision']) ? sprintf( __('Event restored to revision from %s'), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+    6 => sprintf( __('Event published. <a href="%s">View event</a>'), esc_url( get_permalink($post_ID) ) ),
+    7 => __('Event saved.'),
+    8 => sprintf( __('Event submitted. <a target="_blank" href="%s">Preview event</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+    9 => sprintf( __('Event scheduled for: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Preview event</a>'),
+      // translators: Publish box date format, see http://php.net/date
+      date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+    10 => sprintf( __('Event draft updated. <a target="_blank" href="%s">Preview event</a>'), esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+  );
+ 
+  return $messages;
+}
+
 
 
 // 10. Add Event Post Type to Feed
@@ -206,7 +265,7 @@ function post_type_event_init() {
     // Add a Custom Post Type to a feed
     function add_event_to_feed( $qv ) {
       if ( isset($qv['feed']) && !isset($qv['post_type']) )
-        $qv['post_type'] = array('post', 'event');
+        $qv['post_type'] = array('post', 'rs_events');
       return $qv;
     }
 
