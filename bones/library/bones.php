@@ -203,7 +203,6 @@ function bones_theme_support() {
 			'quote',             // a quick quote
 			'status',            // a Facebook like status update
 			'video',             // video
-			'audio',             // audio
 			'chat'               // chat transcript
 		)
 	);

@@ -20,12 +20,12 @@ Digging into WP - http://digwp.com/2010/10/customize-wordpress-dashboard/
 // disable default dashboard widgets
 function disable_default_dashboard_widgets() {
 	// remove_meta_box('dashboard_right_now', 'dashboard', 'core');    // Right Now Widget
-	remove_meta_box('dashboard_recent_comments', 'dashboard', 'core'); // Comments Widget
+	//remove_meta_box('dashboard_recent_comments', 'dashboard', 'core'); // Comments Widget
 	remove_meta_box('dashboard_incoming_links', 'dashboard', 'core');  // Incoming Links Widget
 	remove_meta_box('dashboard_plugins', 'dashboard', 'core');         // Plugins Widget
 
-	// remove_meta_box('dashboard_quick_press', 'dashboard', 'core');  // Quick Press Widget
-	remove_meta_box('dashboard_recent_drafts', 'dashboard', 'core');   // Recent Drafts Widget
+	remove_meta_box('dashboard_quick_press', 'dashboard', 'core');  // Quick Press Widget
+	//remove_meta_box('dashboard_recent_drafts', 'dashboard', 'core');   // Recent Drafts Widget
 	remove_meta_box('dashboard_primary', 'dashboard', 'core');         //
 	remove_meta_box('dashboard_secondary', 'dashboard', 'core');       //
 
@@ -86,7 +86,7 @@ function bones_custom_dashboard_widgets() {
 // removing the dashboard widgets
 add_action('admin_menu', 'disable_default_dashboard_widgets');
 // adding any custom widgets
-add_action('wp_dashboard_setup', 'bones_custom_dashboard_widgets');
+//add_action('wp_dashboard_setup', 'bones_custom_dashboard_widgets');
 
 
 /************* CUSTOM LOGIN PAGE *****************/
@@ -124,6 +124,6 @@ function bones_custom_admin_footer() {
 }
 
 // adding it to the admin area
-add_filter('admin_footer_text', 'bones_custom_admin_footer');
+//add_filter('admin_footer_text', 'bones_custom_admin_footer');
 
 ?>

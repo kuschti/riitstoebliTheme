@@ -17,12 +17,19 @@ come into play. Have fun!
 GENERAL STYLES
 *********************/
 
-body {}
+body {
+	background-color: $beige;
+}
 
 /*********************
 LAYOUT & GRID STYLES
 *********************/
 
+#container {
+	background-color: $white;
+	margin: 20px;
+	@include box-shadow(0 0 5px rgba(0,0,0,0.22));
+}
 .wrap {
 	max-width: 1140px;
 }

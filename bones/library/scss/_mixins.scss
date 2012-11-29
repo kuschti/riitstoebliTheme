@@ -59,12 +59,20 @@ $alert-blue:        #d5edf8;
 
 $black:             #000;
 $white:             #fff;
+$beige:             #E7E0D2;
+$darkbeige:         #BBAE93;
+$darkgrey:          #565656;
+$darkbrown:         #574742;
+$rs-orange:         #E8A02C;
+$rs-orange2:        #F8931F;
 
 $bones-pink:        #f01d4f;
 $bones-blue:        #1990db;
 
-$link-color:        $bones-pink;
-$link-hover:        darken($link-color, 9%);
+$base-color:        $darkgrey;
+$text-color:        $darkbrown;
+$link-color:        $rs-orange2;
+$link-hover:        darken($rs-orange, 9%);
 
 /*
 Here's a great tutorial on how to
