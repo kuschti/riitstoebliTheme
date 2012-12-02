@@ -166,6 +166,11 @@ the navs on the site so our css is cleaner
 and more scalable.
 */
 
+nav ul,
+nav ol {
+	margin: 0;
+}
+
 .nav {
 	border: 1px solid #ccc;
 	border-bottom: 0;
