@@ -34,7 +34,13 @@ single-bookmarks.php
 						    </header> <!-- end article header -->
 					
 						    <section class="entry-content clearfix">
-							
+						    	<?php 
+						    		$rs_event_date_start = DateTime::createFromFormat('Ymd', get_field('rs_event_date_start'));
+						    		$rs_event_date_end = DateTime::createFromFormat('Ymd', get_field('rs_event_date_end'));
+ 								?>
+
+								<p>Datum: <?php echo $rs_event_date_start->format('d.m.y'); ?> - <?php echo $rs_event_date_end->format('d.m.y'); ?></p>
+								<p>Ort: <?php the_field('rs_event_date_location'); ?></p>
 							    <?php the_content(); ?>
 					
 						    </section> <!-- end article section -->
