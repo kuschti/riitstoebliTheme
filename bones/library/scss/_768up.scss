@@ -26,9 +26,9 @@ LAYOUT & GRID STYLES
 *********************/
 
 #container {
-	background-color: $white;
-	margin: 20px;
-	@include box-shadow(0 0 5px rgba(0,0,0,0.22));
+	//background-color: $white;
+	//margin: 20px;
+	//@include box-shadow(0 0 5px rgba(0,0,0,0.22));
 }
 .wrap {
 	max-width: 1140px;
@@ -47,7 +47,6 @@ NAVIGATION STYLES
 *********************/
 
 .nav {
-	background: #eee;
 	border: 0;
 
 	li {
@@ -56,13 +55,14 @@ NAVIGATION STYLES
 
 		a {
 			border-bottom: 0;
+			font-size: 1.75em;
 
 			/*
 			you can use hover styles here even though this size
 			has the possibility of being a mobile device.
 			*/
 			&:hover, &:focus {
-				background-color: #dedede;
+				
 
 			}
 		}
@@ -138,6 +138,15 @@ NAVIGATION STYLES
 	}  /* end current highlighters */
 
 } /* end .nav */
+
+
+/*********************
+GALLERY STYLES
+*********************/
+.galleryoverview {
+	
+}
+
 
 /*********************
 SIDEBARS & ASIDES

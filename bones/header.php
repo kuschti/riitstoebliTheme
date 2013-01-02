@@ -27,6 +27,8 @@
 		<?php wp_head(); ?>
 		<!-- end of wordpress head -->
 			
+		<script type="text/javascript" src="//use.typekit.net/kbw1nms.js"></script>
+		<script type="text/javascript">try{Typekit.load();}catch(e){}</script>	
 		<!-- drop Google Analytics Here -->
 		<!-- end analytics -->
 		
@@ -50,7 +52,25 @@
 					<nav role="navigation">
 						<?php bones_main_nav(); ?>
 					</nav>
+
+					<?php get_search_form( true ); ?>
 				
 				</div> <!-- end #inner-header -->
+
+				<?php if(is_home() && !is_paged()):?>
+				<div id="events">
+					<div id="inner-events" class="wrap clearfix">
+						<?php
+						$args = array( 'post_type' => 'rs_events', 'posts_per_page' => 10 );
+						$loop = new WP_Query( $args );
+						while ( $loop->have_posts() ) : $loop->the_post(); ?>
+							<article id="event-<?php the_ID(); ?>" <?php post_class('clearfix'); ?> role="event">
+								<h1 class="h2"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></h1>
+							</article>
+
+						<?php endwhile; ?>
+					</div>
+				</div>
+			<?php endif;?>
 			
 			</header> <!-- end header -->

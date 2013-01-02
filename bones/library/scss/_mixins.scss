@@ -62,16 +62,16 @@ $white:             #fff;
 $beige:             #E7E0D2;
 $darkbeige:         #BBAE93;
 $darkgrey:          #565656;
-$darkbrown:         #574742;
-$rs-orange:         #E8A02C;
+$textgrey:          #444444;
+$rs-orange:         #D86C00;
 $rs-orange2:        #F8931F;
 
 $bones-pink:        #f01d4f;
 $bones-blue:        #1990db;
 
 $base-color:        $darkgrey;
-$text-color:        $darkbrown;
-$link-color:        $rs-orange2;
+$text-color:        $textgrey;
+$link-color:        $rs-orange;
 $link-hover:        darken($rs-orange, 9%);
 
 /*
@@ -85,8 +85,9 @@ http://sachagreif.com/sass-color-variables/
 TYPOGRAPHY
 *********************/
 
-$sans-serif:        "Helvetica Neue", Helvetica, Arial, sans-serif;
+$sans-serif:        "myriad-pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
 $serif:             "Georgia", Cambria, Times New Roman, Times, serif;
+$titlefont:         "proxima-nova-alt-condensed","Helvetica Neue", Helvetica, Arial, sans-serif;
 
 
 /* 	To embed your own fonts, use this syntax
@@ -271,7 +272,8 @@ BUTTONS
 	margin-bottom: 20px;
 	line-height: 21px;
 	@include border-radius(4px);
-	@include css-gradient($link-color, darken($link-color, 5%));
+    background-color: $link-color;
+	//@include css-gradient($link-color, darken($link-color, 5%));
 
 
 	&:hover, &:focus {

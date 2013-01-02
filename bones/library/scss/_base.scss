@@ -19,7 +19,9 @@ body {
 	font-family: $sans-serif;
 	font-size: 100%;
 	line-height: 1.5;
-	color: $base-color;
+	//color: $base-color;
+	background-image: url(../images/gray_jean.png);
+	color: $text-color;
 }
 
 /********************
@@ -105,9 +107,9 @@ H1, H2, H3, H4, H5 STYLES
 ******************************************************************/
 
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
-	font-family: $sans-serif;
+	font-family: $titlefont;
 	text-rendering: optimizelegibility;
-	font-weight: 500;
+	font-weight: 700;
 	/*
 	if you're going to use webfonts, be sure to check your weights
 	http://css-tricks.com/watch-your-font-weight/
@@ -116,12 +118,18 @@ h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5 {
 	/* removing text decoration from all headline links */
 	a {
 		text-decoration: none;
+		color: $darkgrey;
+
+		&:hover, &:focus {
+			color: $rs-orange;
+			@include transition(all 0.2s ease-in-out);
+		}
 	}
 }
 
 h1, .h1 {
 	font-size: 2.5em;
-	line-height: 1.333em;
+	line-height: 1em;
 }
 
 h2, .h2 {
@@ -150,9 +158,14 @@ h5, .h5 {
 HEADER SYTLES
 *********************/
 
-.header {}
+.header {
+	background-color:rgba(172,141,120,0.2);
+	@include box-shadow(inset 0 0 10px rgba(0,0,0,0.06));
+}
 
-	#logo {}
+	#logo {
+		text-align: center;
+	}
 
 /*********************
 NAVIGATION STYLES
@@ -181,7 +194,6 @@ nav ol {
 			display: block;
 			text-decoration: none;
 			padding: 10px 10px;
-			background-color: #eee;
 			border-bottom: 1px solid #ccc;
 
 			/*
@@ -248,8 +260,8 @@ POSTS & CONTENT STYLES
 *********************/
 
 #content {
-	margin-top: 2.2em;
-}
+	margin-top: 4em;
+
 
 		.hentry {
 
@@ -258,7 +270,9 @@ POSTS & CONTENT STYLES
 			footer {}
 
 		} /* end .hentry */
-
+		.article-header {
+			text-align: center;
+		}
 		.single-title,
 		.page-title {}
 
@@ -270,8 +284,18 @@ POSTS & CONTENT STYLES
 
 		/* want to style individual post classes? Booya! */
 		.post-id {}         /* post by id (i.e. post-3) */
-		.post {}            /* general post style */
-		.page {}            /* general article on a page style */
+
+		.post {				/* general post style */
+			background-color: $white;
+			margin-bottom: 4em;
+			@include border-radius(5px);
+			@include box-shadow(0 2px 2px rgba(0,0,0,0.22));
+			overflow: hidden;
+		}
+
+		.page {
+			@extend .post;
+		}            /* general article on a page style */
 		.attachment {}      /* general style on an attatchment */
 		.sticky {}          /* sticky post style */
 		.hentry {}          /* hentry class */
@@ -288,7 +312,11 @@ POSTS & CONTENT STYLES
 		/* entry content */
 		.entry-content {
 
-			p {}
+			p {
+				width: 80%;
+				margin: 0 auto;
+				margin-top: 1em;
+			}
 
 
 			ul, ol, table, dl {}
@@ -356,6 +384,10 @@ POSTS & CONTENT STYLES
 			}
 
 		} /* end .entry-content */
+		.entry-content.ninecol {
+			float: none;
+			margin: 0 auto;
+		}
 
 		.wp-caption {
 			background: #eee;
@@ -382,7 +414,12 @@ POSTS & CONTENT STYLES
 
 				a {}
 
-				img {}
+				img { 
+					width: 22%;
+					height: auto;
+					margin: 0 1.5% 3% 1.5%;
+					float: left;
+				}
 
 			}
 
@@ -399,6 +436,74 @@ POSTS & CONTENT STYLES
 		.size-large {}
 		.size-medium {}
 		.size-thumbnail {}
+
+		.article-footer {
+			background-color: #FAF9F8;
+			background-color: rgba(230,224,220,0.2);
+			padding: 7px 5px;
+			margin-top: 2em;
+
+
+			p { 
+				margin: 0;
+				text-align: center;
+			}
+		}
+
+
+		.imagedetail img {
+			margin: 0 auto;
+			display: block;
+		}
+
+}
+
+
+/*********************
+GALLERY STYLES
+*********************/
+#content {
+	.galleryoverview {
+		.post {
+			@include box-shadow(none);
+			position: relative;
+			background-color: transparent;
+		}
+		a {
+			border: 15px solid $rs-orange2;
+			@include border-radius(150%);
+			display: block;
+		}
+		img {
+			@include border-radius(150%);
+		}
+	}
+}
+.home {
+	.galleryoverview {
+		.first h1 {
+			font-size: 4em;
+			line-height: 230%;
+		}
+		header {
+			width: 100%;
+			position: absolute;
+			z-index: 10;
+			top: 0;
+		}
+	}
+}
+
+.galleryoverview {
+
+	img {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+}
+
 
 /******************************************************************
 PAGE NAVI STYLES
@@ -422,7 +527,7 @@ PAGE NAVI STYLES
 
 				&:hover,
 				&:focus {
-					color: #f01d4f;
+					color: $rs-orange2;
 					text-decoration: underline;
 				}
 			}
@@ -432,7 +537,7 @@ PAGE NAVI STYLES
 		/* current page link */
 		li.bpn-current {
 			padding: 3px 6px;
-			border-bottom: 2px solid #f01d4f;
+			border-bottom: 2px solid $rs-orange2;
 			position: relative;
 
 			a {
@@ -517,6 +622,7 @@ COMMENT STYLES
 
 /* h3 comment title */
 #comments {
+	text-align: center;
 
 	/* number of comments span */
 	span {}
@@ -674,7 +780,7 @@ COMMENT STYLES
 	.comment-reply-link {
 		text-decoration: none;
 		float: right;
-		background: #4598bb;
+		background: #E1943E;
 		padding: 3px 5px;
 		color: #fff;
 		opacity: 0.65;
