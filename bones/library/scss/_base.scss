@@ -473,9 +473,29 @@ GALLERY STYLES
 			border: 15px solid $rs-orange2;
 			@include border-radius(150%);
 			display: block;
+
+			&:hover,
+			&:focus {
+				border-color: #fff;
+
+				img {
+					opacity: 1;
+					
+				}
+
+				header {
+					display: none;
+					
+				}
+			}
 		}
 		img {
 			@include border-radius(150%);
+			opacity: 0.5;
+		}
+
+		img, a, header {
+			@include transition(all 0.5s ease-in-out);
 		}
 	}
 }
@@ -484,12 +504,21 @@ GALLERY STYLES
 		.first h1 {
 			font-size: 4em;
 			line-height: 230%;
+			font-weight: 100;
+			color: $rs-orange2;
 		}
 		header {
 			width: 100%;
 			position: absolute;
 			z-index: 10;
 			top: 0;
+
+			h1 {
+				color: #fff;
+			}
+			h3 {
+				color: $darkgrey;
+			}
 		}
 	}
 }
