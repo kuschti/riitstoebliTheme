@@ -473,6 +473,7 @@ GALLERY STYLES
 			border: 15px solid $rs-orange2;
 			@include border-radius(150%);
 			display: block;
+			overflow: hidden;
 
 			&:hover,
 			&:focus {
@@ -508,13 +509,20 @@ GALLERY STYLES
 			color: $rs-orange2;
 		}
 		header {
-			width: 100%;
+			width: 90%;
 			position: absolute;
 			z-index: 10;
-			top: 0;
+			bottom: 20%;
+			left: 5%;
+			overflow: hidden;
 
 			h1 {
 				color: #fff;
+				overflow: hidden;
+				-webkit-hyphens: auto;
+				-moz-hyphens: auto;
+				hyphens: auto;
+				word-wrap: break-word;
 			}
 			h3 {
 				color: $darkgrey;

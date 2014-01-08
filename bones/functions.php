@@ -52,6 +52,9 @@ add_image_size( 'bones-thumb-600', 600, 150, true );
 add_image_size( 'bones-thumb-300', 300, 100, true );
 add_image_size( 'bones-thumb-250', 250, 250, true );
 
+if ( ! isset( $content_width ) )
+    $content_width = 750;
+
 /* 
 to add more sizes, simply copy a line from above 
 and change the dimensions & name. As long as you
